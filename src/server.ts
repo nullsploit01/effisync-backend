@@ -1,6 +1,6 @@
 import express from 'express'
-
 import 'dotenv/config'
+
 import { logger } from './config/logger'
 
 const app = express()

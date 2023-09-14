@@ -6,8 +6,9 @@
   "scripts": {
     "test": "jest",
     "start": "tsc && node ./dist/server.js",
-    "dev": "ts-node-dev --respawn --transpileOnly src/server.ts",
+    "dev": "ts-node-dev src/server.ts --respawn --transpileOnly",
     "check-types": "tsc --noEmit",
+    "prettier": "prettier --write \"./src/**/*{js,ts}\"",
     "prepare": "husky install"
   },
   "repository": {
@@ -34,7 +35,6 @@
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "prettier": "^3.0.3",
-    "prettier-plugin-import-sort": "^0.0.7",
     "ts-node-dev": "^2.0.0"
   },
   "lint-staged": {

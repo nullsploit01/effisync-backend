@@ -11,9 +11,9 @@ module.exports = {
   importOrderCaseInsensitive: true,
   importOrder: [
     '<THIRD_PARTY_MODULES>',
-    '^src/(.*)$',
-    '^(.*)/(?!generated)(.*)/(.*)$',
-    '^(.*)/generated/(.*)$',
-    '^[./]'
-  ]
+    '^@apollo/(.*)$',
+    '^[./]' // Absolute path imports
+  ],
+
+  plugins: ['@trivago/prettier-plugin-sort-imports']
 }

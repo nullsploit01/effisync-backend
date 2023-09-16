@@ -12,13 +12,21 @@ module.exports = {
       typescript: {}
     }
   },
+  plugins: ['unused-imports'],
+  overrides: [
+    {
+      files: ['*.ts', '*.d.ts'],
+      parserOptions: {
+        project: './tsconfig.json'
+      }
+    }
+  ],
   extends: ['eslint:recommended'],
   globals: {
     __dirname: true
   },
   rules: {
-    'no-unused-vars': 'warn',
     'no-console': 'error',
-    'prefer-const': 'error'
+    'unused-imports/no-unused-imports': 'error'
   }
 }

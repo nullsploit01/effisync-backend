@@ -1,9 +1,10 @@
 import { ApolloServer } from '@apollo/server'
+
 import { typeDefs } from './typedefs'
 
 export const resolvers = {
   Query: {
-    hello: () => 'world'
+    hello: () => 'Sup world'
   }
 }
 const server = new ApolloServer({

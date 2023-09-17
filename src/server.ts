@@ -1,6 +1,7 @@
 import cors from 'cors'
 import 'dotenv/config'
 import express from 'express'
+import mongoose from 'mongoose'
 
 import { expressMiddleware } from '@apollo/server/express4'
 
@@ -19,6 +20,9 @@ const main = async () => {
   await server.start()
 
   app.use('/graphql', expressMiddleware(server))
+
+  await mongoose.connect(process.env.MONGODB_CONNECTION_STRING!)
+  logger.info('Connected to MongoDB!')
 
   app.listen(process.env.PORT, () => {
     logger.info(`Server is running on http://localhost:${process.env.PORT}/graphql`)

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
-import { IUser } from 'src/interface/IUser'
-import { passwordService } from 'src/services/auth/password'
+import { IUser } from '../interface/IUser'
+import { passwordService } from '../services/auth/password'
 
 interface IUserDocument extends mongoose.Document {
   name: string
@@ -9,8 +9,8 @@ interface IUserDocument extends mongoose.Document {
   password?: string
   googleId?: string
   avatar?: string
-  createdAt: Date
-  updatedAt: Date
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 interface IUserModel extends mongoose.Model<IUserDocument> {

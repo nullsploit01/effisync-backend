@@ -4,6 +4,6 @@ export interface IUser {
   password?: string
   googleId?: string
   avatar?: string
-  createdAt: Date
-  updatedAt: Date
+  createdAt?: Date
+  updatedAt?: Date
 }

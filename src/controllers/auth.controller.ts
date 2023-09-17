@@ -1,3 +1,4 @@
+import { BadRequestError } from '../errors/bad-request.error'
 import { User } from '../models/user'
 import { IControllerAsyncMethod } from './interface'
 
@@ -7,7 +8,7 @@ class AuthController {
       const { name, email, password } = req.body
       const existingUser = await User.findOne({ email })
       if (existingUser) {
-        throw new Error('Email already in use')
+        throw new BadRequestError('Email already in use')
       }
 
       const user = User.build({ name, email, password })

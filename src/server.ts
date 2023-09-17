@@ -7,6 +7,7 @@ import { expressMiddleware } from '@apollo/server/express4'
 
 import { httpLogger, logger } from './config/logger'
 import { server } from './graphql'
+import { errorHandler } from './middlewares/error-handler.middleware'
 import { authRouter } from './routes'
 
 const app = express()
@@ -28,6 +29,8 @@ const main = async () => {
     logger.info(`Server is running on http://localhost:${process.env.PORT}/graphql`)
   })
 }
+
+app.use(errorHandler)
 
 main().catch((error) => {
   logger.error(error)

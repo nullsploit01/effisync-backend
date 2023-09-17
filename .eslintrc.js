@@ -27,6 +27,7 @@ module.exports = {
   },
   rules: {
     'no-console': 'error',
-    'unused-imports/no-unused-imports': 'error'
+    'unused-imports/no-unused-imports': 'error',
+    'no-unused-vars': 'off'
   }
 }

@@ -1,10 +1,7 @@
 import morgan from 'morgan'
-import winston from 'winston'
+import winston, { createLogger, format } from 'winston'
 
-export const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.json(),
-  defaultMeta: { service: 'user-service' },
+export const logger = createLogger({
   transports: [
     new winston.transports.File({ filename: 'error.log', level: 'error' }),
     new winston.transports.File({ filename: 'combined.log' })
@@ -14,7 +11,10 @@ export const logger = winston.createLogger({
 if (process.env.NODE_ENV !== 'production') {
   logger.add(
     new winston.transports.Console({
-      format: winston.format.simple()
+      format: format.combine(
+        format.colorize({ all: true }), // Enable colorization
+        format.simple() // Simple log format
+      )
     })
   )
 }

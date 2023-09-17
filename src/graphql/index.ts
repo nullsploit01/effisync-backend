@@ -1,6 +1,10 @@
 import { ApolloServer } from '@apollo/server'
 
-import { typeDefs } from './typedefs'
+export const typeDefs = `#graphql
+  type Query {
+    hello: String
+  }
+`
 
 export const resolvers = {
   Query: {

@@ -1,3 +1,4 @@
+import cors from 'cors'
 import 'dotenv/config'
 import express from 'express'
 
@@ -8,14 +9,12 @@ import { server } from './graphql'
 
 const app = express()
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Hello There!' })
-})
+app.use(cors(), express.json())
 
 const main = async () => {
   await server.start()
 
-  app.use('/graphql', express.json(), expressMiddleware(server))
+  app.use('/graphql', expressMiddleware(server))
 
   app.listen(process.env.PORT, () => {
     logger.info(`Server is running on http://localhost:${process.env.PORT}/graphql`)

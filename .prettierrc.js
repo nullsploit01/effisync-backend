@@ -12,6 +12,7 @@ module.exports = {
   importOrder: [
     '<THIRD_PARTY_MODULES>',
     '^@apollo/(.*)$',
+    'src/(.*)$',
     '^[./]' // Absolute path imports
   ],
 

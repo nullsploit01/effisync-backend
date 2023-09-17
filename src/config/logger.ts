@@ -1,3 +1,4 @@
+import morgan from 'morgan'
 import winston from 'winston'
 
 export const logger = winston.createLogger({
@@ -17,3 +18,14 @@ if (process.env.NODE_ENV !== 'production') {
     })
   )
 }
+
+export const httpLogger = () =>
+  morgan((tokens, req, res) =>
+    [
+      tokens.method(req, res),
+      tokens.url(req, res),
+      tokens.status(req, res),
+      tokens['response-time'](req, res),
+      'ms'
+    ].join(' ')
+  )

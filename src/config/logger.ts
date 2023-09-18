@@ -18,6 +18,7 @@ if (process.env.NODE_ENV !== 'production') {
     })
   )
 }
+32
 
 export const httpLogger = () =>
   morgan((tokens, req, res) =>

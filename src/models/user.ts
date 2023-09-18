@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 
 import { IUser } from '../interface/IUser'
-import { passwordService } from '../services/auth/password'
+import { passwordService } from '../services/auth/password.service'
 
 interface IUserDocument extends mongoose.Document {
   name: string
@@ -17,14 +17,25 @@ interface IUserModel extends mongoose.Model<IUserDocument> {
   build(attrs: IUser): IUserDocument
 }
 
-const userSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String },
-  googleId: { type: String },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
-})
+const userSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String },
+    googleId: { type: String },
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now }
+  },
+  {
+    toJSON: {
+      transform(doc, ret) {
+        delete ret._id
+        delete ret.password
+        delete ret.__v
+      }
+    }
+  }
+)
 
 // hash the pasword before saving email/password users
 userSchema.pre<IUserDocument>('save', async function (done) {

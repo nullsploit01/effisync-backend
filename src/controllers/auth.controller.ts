@@ -1,19 +1,13 @@
-import { BadRequestError } from '../errors/bad-request.error'
-import { User } from '../models/user'
+import { authService } from '../services/auth/auth.service'
 import { IControllerAsyncMethod } from './interface'
 
 class AuthController {
   register: IControllerAsyncMethod = async (req, res, next) => {
     try {
       const { name, email, password } = req.body
-      const existingUser = await User.findOne({ email })
-      if (existingUser) {
-        throw new BadRequestError('Email already in use')
-      }
 
-      const user = User.build({ name, email, password })
-      await user.save()
-      res.send('register')
+      const user = await authService.register(name, email, password)
+      return res.status(201).json({ success: true, response: user })
     } catch (err) {
       next(err)
     }
@@ -21,7 +15,10 @@ class AuthController {
 
   login: IControllerAsyncMethod = async (req, res, next) => {
     try {
-      res.send('login')
+      const { email, password } = req.body
+
+      const user = await authService.login(email, password)
+      return res.status(200).json({ success: true, response: user })
     } catch (err) {
       next(err)
     }

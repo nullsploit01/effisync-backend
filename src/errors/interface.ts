@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 
 export interface IErrorResponse {
-  response: string | Record<string, string>[]
-  success: boolean
-  field?: string
+  message: string | Record<string, string>[]
+  code: string
 }
 
 export interface IErrorHandler {

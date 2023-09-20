@@ -1,12 +1,10 @@
-import { GraphQLError } from 'graphql'
+import { GraphQLError, GraphQLErrorOptions } from 'graphql'
 
 import { IErrorResponse } from './interface'
 
 export abstract class CustomError extends GraphQLError {
-  abstract statusCode: number
-
-  constructor(message: string) {
-    super(message)
+  constructor(message: string, options?: GraphQLErrorOptions) {
+    super(message, options)
     Object.setPrototypeOf(this, CustomError.prototype)
   }
 

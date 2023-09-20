@@ -1,13 +1,17 @@
+import { ApolloServerErrorCode } from '@apollo/server/errors'
+
 import { CustomError } from './custom.error'
 
 export class NotAuthorizedError extends CustomError {
-  statusCode = 401
+  constructor(public message = 'Not Authorized') {
+    super(message, {
+      extensions: { code: ApolloServerErrorCode.BAD_REQUEST, http: { status: 401 } }
+    })
 
-  constructor() {
-    super('Not Authorized')
+    Object.setPrototypeOf(this, NotAuthorizedError.prototype)
   }
 
   serializeErrors() {
-    return [{ code: 'NOT_AUTHORIZED', message: 'Not Authorized' }]
+    return [{ code: 'NOT_AUTHORIZED', message: this.message }]
   }
 }

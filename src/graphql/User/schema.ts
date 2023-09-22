@@ -2,7 +2,6 @@ export const userTypeDefs = `#graphql
 type User {
     email: ID!
     name: String!
-    password: String
     googleId: String
     avatar: String
     createdAt: String
@@ -10,7 +9,7 @@ type User {
 }
 
 type Query {
-    userProfile: User!
+    userProfile(email: ID!): User!
 }
 
 type Mutation {

@@ -7,3 +7,7 @@ export interface ILogin {
 export interface IRegister {
   (name: string, email: string, password: string): Promise<IUser>
 }
+
+export interface IProfile {
+  (email: string): Promise<IUser>
+}

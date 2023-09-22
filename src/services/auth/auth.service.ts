@@ -1,6 +1,7 @@
 import { BadRequestError } from '../../errors/bad-request.error'
+import { NotFoundError } from '../../errors/not-found.error'
 import { User } from '../../models/user'
-import { ILogin, IRegister } from './interface'
+import { ILogin, IProfile, IRegister } from './interface'
 import { passwordService } from './password.service'
 
 class AuthService {
@@ -32,6 +33,16 @@ class AuthService {
     }
 
     return existingUser
+  }
+
+  profile: IProfile = async (email) => {
+    const user = await User.findOne({ email })
+
+    if (!user) {
+      throw new NotFoundError('User not found')
+    }
+
+    return user
   }
 }
 

@@ -10,8 +10,8 @@ export const userMutations = {
       _: any,
       { name, email, password }: { name: string; email: string; password: string }
     ) => {
-      const user = await authService.register(name, email, password)
-      return user
+      const { user, token } = await authService.register(name, email, password)
+      return { user, token }
     }
   }
 }

@@ -2,6 +2,7 @@ import { BadRequestError } from '../../errors/bad-request.error'
 import { NotFoundError } from '../../errors/not-found.error'
 import { User } from '../../models/user'
 import { ILogin, IProfile, IRegister } from './interface'
+import { jwtService } from './jwt.service'
 import { passwordService } from './password.service'
 
 class AuthService {
@@ -14,7 +15,10 @@ class AuthService {
 
     const user = User.build({ name, email, password })
     await user.save()
-    return user
+
+    const token = await jwtService.create({ id: user.id, email: user.email })
+
+    return { user, token }
   }
 
   login: ILogin = async (email, password) => {
@@ -32,7 +36,9 @@ class AuthService {
       throw new BadRequestError('Invalid Credentials')
     }
 
-    return existingUser
+    const token = await jwtService.create({ id: existingUser.id, email: existingUser.email })
+
+    return { user: existingUser, token }
   }
 
   profile: IProfile = async (email) => {

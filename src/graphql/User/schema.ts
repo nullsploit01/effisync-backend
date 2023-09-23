@@ -10,11 +10,11 @@ export const userTypeDefs = gql`
     updatedAt: String
   }
 
-  type Query {
+  extend type Query {
     userProfile(email: ID!): User!
   }
 
-  type Mutation {
+  extend type Mutation {
     login(email: ID!, password: String!): User!
     register(name: String!, email: ID!, password: String!): User!
   }

@@ -1,18 +1,26 @@
-export const taskTypeDefs = `#graphql
-type Task {
+import gql from 'graphql-tag'
+
+export const taskTypeDefs = gql`
+  type Task {
     id: ID!
     title: String!
-    description: String!
-    status: String!
+    description: String
     createdAt: String
     updatedAt: String
     tags: [String!]
     reminderId: ID
     status: String!
-}
+  }
 
-type Query {
-    tasks: [Task!]!
-    task(id: ID!): Task!
-}
+  extend type Mutation {
+    createTask(task: TaskInput!): Task!
+  }
+
+  input TaskInput {
+    user: ID!
+    title: String!
+    description: String
+    tags: [String!]
+    reminderId: ID
+  }
 `

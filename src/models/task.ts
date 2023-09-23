@@ -20,7 +20,7 @@ interface ITaskModel extends mongoose.Model<ITaskDocument> {
 
 const taskSchema = new mongoose.Schema(
   {
-    id: { type: mongoose.Schema.Types.ObjectId, default: mongoose.Types.ObjectId },
+    id: { type: mongoose.Schema.Types.ObjectId, default: new mongoose.Types.ObjectId() },
     user: { type: String, required: true },
     title: { type: String, required: true },
     status: { type: String, default: TASK_STATUS.TODO },
@@ -46,10 +46,10 @@ taskSchema.pre<ITaskDocument>('save', function (done) {
   done()
 })
 
-const Task = mongoose.model<ITaskDocument, ITaskModel>('Task', taskSchema)
-
 taskSchema.statics.build = (attrs: ITask) => {
   return new Task(attrs)
 }
+
+const Task = mongoose.model<ITaskDocument, ITaskModel>('Task', taskSchema)
 
 export { Task }

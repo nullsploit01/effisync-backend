@@ -11,19 +11,6 @@ type Task {
     status: String!
 }
 
-type Reminder {
-    id: ID!
-    taskId: ID
-    frequencyId: ID
-    nextReminder: String
-}
-
-type Frequency {
-    id: ID!
-    name: String!
-    duration: Int!
-}
-
 type Query {
     tasks: [Task!]!
     task(id: ID!): Task!

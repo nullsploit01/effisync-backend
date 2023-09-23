@@ -1,14 +1,19 @@
 import mongoose from 'mongoose'
 
+import { ApolloServer } from '@apollo/server'
 import { startStandaloneServer } from '@apollo/server/standalone'
 
 import { environment } from './config/environment'
 import { logger } from './config/logger'
-import { server } from './graphql'
+import { schema } from './graphql'
 
 const main = async () => {
+  const server = new ApolloServer({
+    schema
+  })
+
   const { url } = await startStandaloneServer(server, {
-    listen: { port: Number(environment.port) || 4000 }
+    listen: { port: environment.port }
   })
 
   logger.info(`Server ready at ${url}`)

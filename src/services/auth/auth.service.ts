@@ -5,9 +5,17 @@ import { jwtService } from '../jwt/jwt.service'
 import { sessionService } from '../session/session.service'
 import { ILogin, IProfile, IRegister } from './interface'
 import { passwordService } from './password.service'
+import {
+  validateLoginParameters,
+  validateLogoutParameters,
+  validateProfileParameters,
+  validateRegisterParameters
+} from './validation'
 
 class AuthService {
   register: IRegister = async (name, email, password) => {
+    validateRegisterParameters(name, email, password)
+
     const existingUser = await User.findOne({ email })
 
     if (existingUser) {
@@ -28,6 +36,8 @@ class AuthService {
   }
 
   login: ILogin = async (email, password) => {
+    validateLoginParameters(email, password)
+
     const existingUser = await User.findOne({ email })
     if (!existingUser) {
       throw new BadRequestError('Invalid Credentials')
@@ -53,6 +63,8 @@ class AuthService {
   }
 
   profile: IProfile = async (email) => {
+    validateProfileParameters(email)
+
     const user = await User.findOne({ email })
 
     if (!user) {
@@ -63,6 +75,7 @@ class AuthService {
   }
 
   logout = async (sessionToken: string) => {
+    validateLogoutParameters(sessionToken)
     sessionService.deleteSession(sessionToken)
   }
 }

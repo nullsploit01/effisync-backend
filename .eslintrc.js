@@ -12,6 +12,7 @@ module.exports = {
       typescript: {}
     }
   },
+  ignorePatterns: ['tests/**/**.ts'],
   plugins: ['unused-imports'],
   overrides: [
     {

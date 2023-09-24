@@ -1,10 +1,10 @@
 import { BadRequestError } from '../../errors/bad-request.error'
 import { NotFoundError } from '../../errors/not-found.error'
 import { User } from '../../models/user'
+import { jwtService } from '../jwt/jwt.service'
+import { sessionService } from '../session/session.service'
 import { ILogin, IProfile, IRegister } from './interface'
-import { jwtService } from './jwt.service'
 import { passwordService } from './password.service'
-import { sessionService } from './session.service'
 
 class AuthService {
   register: IRegister = async (name, email, password) => {

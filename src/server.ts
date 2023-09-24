@@ -8,8 +8,8 @@ import { logger } from './config/logger'
 import { BadRequestError } from './errors/bad-request.error'
 import { schema } from './graphql'
 import { IUserPayload } from './interface/IUser'
-import { jwtService } from './services/auth/jwt.service'
-import { sessionService } from './services/auth/session.service'
+import { jwtService } from './services/jwt/jwt.service'
+import { sessionService } from './services/session/session.service'
 
 interface IContext {
   user: IUserPayload | null

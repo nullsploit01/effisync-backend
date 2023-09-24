@@ -11,4 +11,5 @@ export interface IUser {
 export interface IUserPayload {
   id: string
   email: string
+  sessionToken: string
 }

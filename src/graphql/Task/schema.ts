@@ -17,7 +17,6 @@ export const taskTypeDefs = gql`
   }
 
   input TaskInput {
-    user: ID!
     title: String!
     description: String
     tags: [String!]

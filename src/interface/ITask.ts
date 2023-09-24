@@ -1,6 +1,8 @@
+import { IUserPayload } from './IUser'
+
 export interface ITask {
   id: string
-  user: string
+  user: IUserPayload
   title: string
   status: keyof typeof TASK_STATUS
   description?: string

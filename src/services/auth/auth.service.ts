@@ -4,6 +4,7 @@ import { User } from '../../models/user'
 import { ILogin, IProfile, IRegister } from './interface'
 import { jwtService } from './jwt.service'
 import { passwordService } from './password.service'
+import { sessionService } from './session.service'
 
 class AuthService {
   register: IRegister = async (name, email, password) => {
@@ -16,7 +17,12 @@ class AuthService {
     const user = User.build({ name, email, password })
     await user.save()
 
-    const token = await jwtService.createUserPayload({ id: user.id, email: user.email })
+    const sessionToken = sessionService.createSession(user.id)
+    const token = await jwtService.createUserPayload({
+      id: user.id,
+      email: user.email,
+      sessionToken
+    })
 
     return { user, token }
   }
@@ -36,9 +42,11 @@ class AuthService {
       throw new BadRequestError('Invalid Credentials')
     }
 
+    const sessionToken = await sessionService.createSession(existingUser.id)
     const token = await jwtService.createUserPayload({
       id: existingUser.id,
-      email: existingUser.email
+      email: existingUser.email,
+      sessionToken
     })
 
     return { user: existingUser, token }

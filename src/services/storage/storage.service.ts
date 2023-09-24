@@ -1,27 +1,33 @@
-import { Redis } from 'ioredis'
+import NodeCache from 'node-cache'
+
+const ONE_DAY = 60 * 60 * 24
 
 class StorageService {
-  redis: Redis
+  cache: NodeCache
 
   constructor() {
-    this.redis = new Redis()
+    this.cache = new NodeCache()
   }
 
-  async get(key: string) {
-    const data = await this.redis.get(key)
-    return data ? JSON.parse(data) : null
+  set(key: string, value: any, ttl = ONE_DAY) {
+    this.cache.set(key, value, ttl)
   }
 
-  async set(key: string, value: any) {
-    return await this.redis.set(key, JSON.stringify(value))
+  get(key: string) {
+    const data = this.cache.get(key)
+    return data ? data : null
   }
 
-  async del(key: string) {
-    return await this.redis.del(key)
+  del(key: string) {
+    return this.cache.del(key)
   }
 
-  async flush() {
-    return await this.redis.flushall()
+  has(key: string) {
+    return this.cache.has(key)
+  }
+
+  flush() {
+    return this.cache.flushAll()
   }
 }
 

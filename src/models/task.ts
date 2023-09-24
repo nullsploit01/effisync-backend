@@ -1,10 +1,11 @@
 import mongoose from 'mongoose'
 
 import { ITask, TASK_STATUS } from '../interface/ITask'
+import { IUserPayload } from './../interface/IUser'
 
 interface ITaskDocument extends mongoose.Document {
   id: string
-  user: string
+  user: IUserPayload
   title: string
   status: keyof typeof TASK_STATUS
   description?: string
@@ -21,7 +22,7 @@ interface ITaskModel extends mongoose.Model<ITaskDocument> {
 const taskSchema = new mongoose.Schema(
   {
     id: { type: mongoose.Schema.Types.ObjectId, default: new mongoose.Types.ObjectId() },
-    user: { type: String, required: true },
+    user: { type: { id: String, email: String }, required: true },
     title: { type: String, required: true },
     status: { type: String, default: TASK_STATUS.TODO },
     description: { type: String },

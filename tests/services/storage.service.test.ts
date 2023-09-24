@@ -81,6 +81,7 @@ describe('Storage Service', () => {
 
       it('should return false if value does not exist', () => {
         const exists = storageService.has('unknown')
+
         expect(exists).toBe(false)
       })
 

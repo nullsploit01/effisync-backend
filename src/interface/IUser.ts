@@ -7,3 +7,8 @@ export interface IUser {
   createdAt?: Date
   updatedAt?: Date
 }
+
+export interface IUserPayload {
+  id: string
+  email: string
+}

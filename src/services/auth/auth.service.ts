@@ -16,7 +16,7 @@ class AuthService {
     const user = User.build({ name, email, password })
     await user.save()
 
-    const token = await jwtService.create({ id: user.id, email: user.email })
+    const token = await jwtService.createUserPayload({ id: user.id, email: user.email })
 
     return { user, token }
   }
@@ -36,7 +36,10 @@ class AuthService {
       throw new BadRequestError('Invalid Credentials')
     }
 
-    const token = await jwtService.create({ id: existingUser.id, email: existingUser.email })
+    const token = await jwtService.createUserPayload({
+      id: existingUser.id,
+      email: existingUser.email
+    })
 
     return { user: existingUser, token }
   }

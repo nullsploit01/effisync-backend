@@ -1,20 +1,21 @@
 import jwt from 'jsonwebtoken'
 
 import { environment } from '../../config/environment'
+import { IUserPayload } from '../../interface/IUser'
 
 class JWTService {
-  async create(payload: any) {
+  async createUserPayload(payload: IUserPayload) {
     return jwt.sign(payload, environment.jwtSecret, {
       expiresIn: '1d'
     })
   }
 
-  async verify(token: string) {
-    return jwt.verify(token, environment.jwtSecret)
+  async verifyUserPayload(token: string) {
+    return jwt.verify(token, environment.jwtSecret) as IUserPayload
   }
 
-  async decode(token: string) {
-    return jwt.decode(token)
+  async decodeUserPayload(token: string) {
+    return jwt.decode(token) as IUserPayload
   }
 }
 

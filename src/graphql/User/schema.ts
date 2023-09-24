@@ -11,12 +11,13 @@ export const userTypeDefs = gql`
   }
 
   extend type Query {
-    userProfile(email: ID!): User!
+    userProfile: User!
   }
 
   extend type Mutation {
     login(email: ID!, password: String!): UserPayload!
     register(name: String!, email: ID!, password: String!): UserPayload!
+    logout: Boolean!
   }
 
   type UserPayload {

@@ -42,7 +42,7 @@ class AuthService {
       throw new BadRequestError('Invalid Credentials')
     }
 
-    const sessionToken = await sessionService.createSession(existingUser.id)
+    const sessionToken = sessionService.createSession(existingUser.id)
     const token = await jwtService.createUserPayload({
       id: existingUser.id,
       email: existingUser.email,
@@ -60,6 +60,10 @@ class AuthService {
     }
 
     return user
+  }
+
+  logout = async (sessionToken: string) => {
+    sessionService.deleteSession(sessionToken)
   }
 }
 

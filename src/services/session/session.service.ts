@@ -17,7 +17,7 @@ class SessionService {
   }
 
   deleteSession(token: string) {
-    return storageService.del(token)
+    return storageService.delete(token)
   }
 
   getUserId(token: string) {

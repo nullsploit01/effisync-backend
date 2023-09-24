@@ -3,14 +3,16 @@ import NodeCache from 'node-cache'
 const ONE_DAY = 60 * 60 * 24
 
 class StorageService {
-  cache: NodeCache
+  private cache: NodeCache
 
   constructor() {
     this.cache = new NodeCache()
   }
 
   set(key: string, value: any, ttl = ONE_DAY) {
-    this.cache.set(key, value, ttl)
+    if (!value) return false
+
+    return this.cache.set(key, value, ttl)
   }
 
   get(key: string) {
@@ -18,7 +20,7 @@ class StorageService {
     return data ? data : null
   }
 
-  del(key: string) {
+  delete(key: string) {
     return this.cache.del(key)
   }
 

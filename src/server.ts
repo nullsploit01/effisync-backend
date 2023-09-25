@@ -1,7 +1,9 @@
+import cors from 'cors'
+import express from 'express'
 import mongoose from 'mongoose'
 
 import { ApolloServer } from '@apollo/server'
-import { startStandaloneServer } from '@apollo/server/standalone'
+import { expressMiddleware } from '@apollo/server/express4'
 
 import { environment } from './config/environment'
 import { logger } from './config/logger'
@@ -15,39 +17,49 @@ interface IContext {
   user: IUserPayload | null
 }
 
+const app = express()
+
 const main = async () => {
   const server = new ApolloServer<IContext>({
     schema
   })
 
-  const { url } = await startStandaloneServer(server, {
-    listen: { port: environment.port },
-    context: async ({ req }) => {
-      const token = req.headers.authorization
-      if (!token) return { user: null }
+  await server.start()
 
-      // verify user payload
-      const user = await jwtService.verifyUserPayload(token)
-      if (!user) {
-        return { user: null }
+  app.use(
+    '/',
+    cors(),
+    express.json(),
+    expressMiddleware(server, {
+      context: async ({ req }) => {
+        const token = req.headers.authorization
+        if (!token) return { user: null }
+
+        // verify user payload
+        const user = jwtService.verifyUserPayload(token)
+        if (!user) {
+          return { user: null }
+        }
+
+        // check if session is valid
+        const { sessionToken } = user
+        const isSessionValid = sessionService.isSessionValid(sessionToken)
+
+        if (!isSessionValid) {
+          throw new BadRequestError('Session Expired, please login again')
+        }
+
+        return { user }
       }
-
-      // check if session is valid
-      const { sessionToken } = user
-      const isSessionValid = sessionService.isSessionValid(sessionToken)
-
-      if (!isSessionValid) {
-        throw new BadRequestError('Session Expired, please login again')
-      }
-
-      return { user }
-    }
-  })
-
-  logger.info(`Server ready at ${url}`)
+    })
+  )
 
   await mongoose.connect(environment.mongoDbConnectionString)
   logger.info('Connected to MongoDB!')
+
+  app.listen(environment.port, () => {
+    logger.info(`Server is running on port: ${environment.port}`)
+  })
 }
 
 main().catch((error) => {

@@ -1,5 +1,6 @@
 import cors from 'cors'
 import express from 'express'
+import { onRequest } from 'firebase-functions/v2/https'
 import mongoose from 'mongoose'
 
 import { ApolloServer } from '@apollo/server'
@@ -65,3 +66,5 @@ const main = async () => {
 main().catch((error) => {
   logger.error(error)
 })
+
+exports.api = onRequest(app)

@@ -1,0 +1,29 @@
+{
+  "functions": [
+    {
+      "codebase": "default",
+      "ignore": ["node_modules", ".git", "firebase-debug.log", "firebase-debug.*.log"],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run test",
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
+    }
+  ],
+  "hosting": {
+    "rewrites": [
+      {
+        "source": "/**",
+        "function": "api",
+        "run": {
+          "region": "asia-southeast1"
+        }
+      }
+    ]
+  },
+  "emulators": {
+    "functions": {
+      "port": 5000,
+      "host": "0.0.0.0"
+    }
+  }
+}

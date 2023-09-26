@@ -50,7 +50,6 @@ const main = async () => {
 }
 
 main().then(() => {
-  logger.info(`Server started at http://127.0.0.1:${environment.port}/effisync/us-central1/api`)
   mongoose
     .connect(environment.mongoDbConnectionString)
     .then(() => {

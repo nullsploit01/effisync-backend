@@ -2,7 +2,7 @@
   "name": "effisync-backend",
   "version": "0.0.0",
   "description": "Backend for EffiSync Project",
-  "main": "src/server.ts",
+  "main": "dist/server.js",
   "engines": {
     "node": "18"
   },
@@ -16,7 +16,7 @@
     "check-types": "tsc --noEmit",
     "prettier": "prettier --write \"./src/**/*{js,ts}\"",
     "prepare": "husky install",
-    "deploy": "SET NODE_ENV=development && firebase deploy --only \"functions,hosting\"",
+    "deploy": "firebase deploy --only \"functions,hosting\"",
     "start:dev": "npm run build:watch | firebase emulators:start --only functions"
   },
   "repository": {

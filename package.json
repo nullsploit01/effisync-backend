@@ -12,12 +12,12 @@
     "build:watch": "tsc --watch --preserveWatchOutput",
     "logs": "firebase functions:log",
     "start": "tsc && node ./dist/server.js",
-    "dev": "ts-node-dev src/server.ts --respawn --transpileOnly",
+    "dev": "set NODE_ENV=local && ts-node-dev src/server.ts --respawn --transpileOnly",
     "check-types": "tsc --noEmit",
     "prettier": "prettier --write \"./src/**/*{js,ts}\"",
     "prepare": "husky install",
     "deploy": "firebase deploy --only \"functions,hosting\"",
-    "start:dev": "npm run build:watch | firebase emulators:start --only functions"
+    "start:function": "npm run build:watch | firebase emulators:start --only functions"
   },
   "repository": {
     "type": "git",

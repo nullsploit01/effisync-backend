@@ -58,6 +58,12 @@ main().then(() => {
     .catch((error) => {
       logger.error(error)
     })
+
+  if (environment.nodeEnv?.trim() === 'local') {
+    app.listen(environment.port, () => {
+      logger.info(`Server is running on http://localhost:${environment.port}/`)
+    })
+  }
 })
 
 exports.api = onRequest(app)

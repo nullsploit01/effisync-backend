@@ -1,5 +1,6 @@
+import { NotFoundError } from '../../errors/not-found.error'
 import { Task } from '../../models/task'
-import { ICreateTask } from './interface'
+import { ICreateTask, IGetTask } from './interface'
 
 class TaskService {
   createTask: ICreateTask = async (task) => {
@@ -13,7 +14,15 @@ class TaskService {
 
   deleteTask = async () => {}
 
-  getTask = async () => {}
+  getTask: IGetTask = async (id) => {
+    const task = await Task.findOne({ id })
+
+    if (!task) {
+      throw new NotFoundError('Task not found')
+    }
+
+    return task
+  }
 
   getTasks = async () => {}
 }

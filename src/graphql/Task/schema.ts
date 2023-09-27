@@ -16,6 +16,10 @@ export const taskTypeDefs = gql`
     createTask(task: TaskInput!): Task!
   }
 
+  extend type Query {
+    getTask(id: ID!): Task!
+  }
+
   input TaskInput {
     title: String!
     description: String

@@ -26,7 +26,7 @@ class AuthService {
     await user.save()
 
     const sessionToken = sessionService.createSession(user.id)
-    const token = await jwtService.createUserPayload({
+    const token = jwtService.createUserPayload({
       id: user.id,
       email: user.email,
       sessionToken

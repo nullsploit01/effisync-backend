@@ -10,11 +10,11 @@ export interface IUpdateTask {
 }
 
 export interface IDeleteTask {
-  (id: string): Promise<boolean>
+  (id: string, user: IUserPayload): Promise<boolean>
 }
 
 export interface IGetTask {
-  (id: string): Promise<ITask>
+  (id: string, user: IUserPayload): Promise<ITask>
 }
 
 export interface IGetTasks {

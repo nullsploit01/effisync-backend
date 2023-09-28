@@ -11,7 +11,7 @@ class TaskService {
   }
 
   updateTask: IUpdateTask = async (id, task) => {
-    const existingTask = await Task.findOne({ id })
+    const existingTask = await Task.findOne({ id, user: task.user })
 
     if (!existingTask) {
       throw new NotFoundError('Task not found')
@@ -22,8 +22,8 @@ class TaskService {
     return updatedTask
   }
 
-  deleteTask: IDeleteTask = async (id) => {
-    const taskToDelete = await Task.findOne({ id })
+  deleteTask: IDeleteTask = async (id, user) => {
+    const taskToDelete = await Task.findOne({ id, user: user.email })
 
     if (!taskToDelete) {
       throw new NotFoundError('Task not found')
@@ -33,8 +33,8 @@ class TaskService {
     return true
   }
 
-  getTask: IGetTask = async (id) => {
-    const task = await Task.findOne({ id })
+  getTask: IGetTask = async (id, user) => {
+    const task = await Task.findOne({ id, user: user.email })
 
     if (!task) {
       throw new NotFoundError('Task not found')

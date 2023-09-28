@@ -24,6 +24,7 @@ export const taskMutations = {
     ) => {
       if (!user) throw new NotAuthorizedError()
 
+      task.user = user.email
       const updatedTask = await taskService.updateTask(id, task)
       return updatedTask
     },
@@ -31,7 +32,7 @@ export const taskMutations = {
     deleteTask: async (_: any, { id }: { id: string }, { user }: { user: IUserPayload | null }) => {
       if (!user) throw new NotAuthorizedError()
 
-      const deletedTask = await taskService.deleteTask(id)
+      const deletedTask = await taskService.deleteTask(id, user)
       return deletedTask
     }
   }

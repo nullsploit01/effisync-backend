@@ -6,7 +6,7 @@ export const taskQueries = {
     getTask: async (_: any, { id }: { id: string }, { user }: { user: any }) => {
       if (!user) throw new NotAuthorizedError('You are not authenticated')
 
-      const task = await taskService.getTask(id)
+      const task = await taskService.getTask(id, user)
       return task
     },
 

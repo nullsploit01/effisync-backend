@@ -57,7 +57,7 @@ main().then(() => {
       logger.error(error)
     })
 
-  if (environment.nodeEnv?.trim() === 'local') {
+  if (environment.isLocalEnv) {
     app.listen(environment.port, () => {
       logger.info(`Server is running on http://localhost:${environment.port}/`)
     })

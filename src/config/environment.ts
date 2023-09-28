@@ -6,7 +6,7 @@ if (!process.env.MONGODB_CONNECTION_STRING)
 if (!process.env.JWT_SECRET) throw new Error('JWT_SECRET is not defined')
 
 export const environment = {
-  nodeEnv: process.env.NODE_ENV,
+  isLocalEnv: process.env.NODE_ENV?.trim() === 'local',
   port: process.env.PORT || 5000,
   mongoDbConnectionString: process.env.MONGODB_CONNECTION_STRING,
   jwtSecret: process.env.JWT_SECRET

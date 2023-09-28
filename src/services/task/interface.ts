@@ -1,4 +1,5 @@
 import { ITask } from '../../interface/ITask'
+import { IUserPayload } from '../../interface/IUser'
 
 export interface ICreateTask {
   (task: ITask): Promise<ITask>
@@ -9,7 +10,7 @@ export interface IUpdateTask {
 }
 
 export interface IDeleteTask {
-  (id: string): Promise<ITask>
+  (id: string): Promise<boolean>
 }
 
 export interface IGetTask {
@@ -17,5 +18,5 @@ export interface IGetTask {
 }
 
 export interface IGetTasks {
-  (userId: string): Promise<ITask[]>
+  (user: IUserPayload): Promise<ITask[]>
 }

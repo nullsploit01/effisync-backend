@@ -22,8 +22,6 @@ const main = async () => {
 
   app.use(
     '*',
-    cors(),
-    express.json(),
     expressMiddleware(server, {
       context: async ({ req }) => {
         const token = req.headers.authorization

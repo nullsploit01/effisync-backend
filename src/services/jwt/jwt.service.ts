@@ -6,7 +6,7 @@ import { IUserPayload } from '../../interface/IUser'
 class JWTService {
   createUserPayload(payload: IUserPayload) {
     return jwt.sign(payload, environment.jwtSecret, {
-      expiresIn: '1d'
+      expiresIn: '30d'
     })
   }
 

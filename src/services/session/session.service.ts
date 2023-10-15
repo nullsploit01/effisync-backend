@@ -1,12 +1,11 @@
-import { randomBytes } from 'crypto'
-
+import { generateRandomId } from '../../utils/id.util'
 import { storageService } from '../storage/storage.service'
 
 const SESSION_TIMEOUT = 60 * 60 * 24 * 30 // 30 days
 
 class SessionService {
   generateToken() {
-    return randomBytes(24).toString('hex')
+    return generateRandomId()
   }
 
   createSession(userId: string, sessionTTL = SESSION_TIMEOUT) {
